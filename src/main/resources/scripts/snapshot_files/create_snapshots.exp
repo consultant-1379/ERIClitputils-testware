@@ -1,0 +1,23 @@
+#!/usr/bin/expect
+
+set hostname [lindex $argv 0]
+
+spawn scp -oStrictHostKeyChecking=no /tmp/create_snapshots.sh litp-admin@$hostname:/tmp/create_snapshots.sh
+expect "assword: "
+send "p3erS3rv3r\r"
+expect eof
+spawn ssh -oStrictHostKeyChecking=no litp-admin@$hostname
+expect "assword: "
+send "p3erS3rv3r\r"
+expect " ~]$ "
+send "su - root\r"
+expect "assword: "
+send "@dm1nS3rv3r\r"
+expect " ~]# "
+send "sh /tmp/create_snapshots.sh\r"
+expect "All litp_kgb snapshots have been created successfully"
+send "logout\r"
+expect " ~]$ "
+send "logout\r"
+expect eof
+

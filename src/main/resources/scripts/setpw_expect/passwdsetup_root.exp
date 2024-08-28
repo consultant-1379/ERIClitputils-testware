@@ -1,0 +1,34 @@
+#!/usr/bin/expect
+
+set hostname [lindex $argv 0]
+set password_tmp [lindex $argv 1]
+set password_perm [lindex $argv 2]
+set password_root_init [lindex $argv 3]
+set password_root_perm [lindex $argv 4]
+
+spawn ssh litp-admin@$hostname
+expect "assword: "
+send "$password_tmp\r"
+expect " ~]$ "
+send "passwd\r"
+expect "assword: "
+send "$password_tmp\r"
+expect "assword: "
+send "$password_perm\r"
+expect "assword: "
+send "$password_perm\r"
+expect " ~]$ "
+send "su - root\r"
+expect "assword: "
+send "$password_root_init\r"
+expect "assword: "
+send "$password_root_init\r"
+expect "assword: "
+send "$password_root_perm\r"
+expect "assword: "
+send "$password_root_perm\r"
+expect " ~]# "
+send "logout\r"
+expect " ~]$ "
+send "logout\r"
+expect eof

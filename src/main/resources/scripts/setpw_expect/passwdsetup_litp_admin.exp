@@ -1,0 +1,29 @@
+#!/usr/bin/expect
+
+set hostname [lindex $argv 0]
+set password_init [lindex $argv 1]
+set password_tmp [lindex $argv 2]
+
+spawn ssh litp-admin@$hostname
+
+expect {
+  -re ".*(Y|y)es/(N|n)o.*" {
+    exp_send "yes\r"
+    exp_continue
+  }
+  -re ".*s password" {
+    exp_send "$password_init\r"
+    exp_continue
+  }
+  -re ".*UNIX password:.*" {
+    exp_send "$password_init\r" 
+    exp_continue
+  }
+  -re ".*ew password:.*" {
+    exp_send "$password_tmp\r"
+    exp_continue
+  }
+  -re ".*~].*" {
+    exp_send "exit\r"
+  }
+}

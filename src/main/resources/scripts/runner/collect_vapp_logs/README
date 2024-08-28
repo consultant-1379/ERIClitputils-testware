@@ -1,0 +1,12 @@
+Run the log collection script from the MS like so:
+python <PATH_TO_SCRIPTS_FOLDER>/collect_ms_logs.py <SYS>
+-- Ex. python collect_logs/collect_ms_logs.py 235
+
+If you want to run the script that updates the passwords on all of the peer nodes:
+python <PATH_TO_SCRIPTS_FOLDER>/collect_ms_logs.py <SYS> set_pass
+-- Ex. python collect_logs/collect_ms_logs.py 235 set_pass
+
+It is assumed that the Site Engineering Document is named "Site..." and is placed under /software/ENM/ or /software/autoDeploy/
+
+A directory, enm_logs, will be created  under /root/ and will contain all of the copied files.
+This directory is tarred and placed in the root directory.

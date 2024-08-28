@@ -1,0 +1,56 @@
+#!/usr/bin/expect -f
+
+###Takes command line arguments:
+#1 user to scp as
+#2 password for scp connection
+#3 ip to go to
+#3 rootpw to test
+
+set user [lindex $argv 0];
+set pw [lindex $argv 1];
+set ip [lindex $argv 2];
+set root_pw [lindex $argv 3];
+
+#Set timeout of script to 30
+set attempts 0
+set timeout 10
+set success false
+set scp_line "$user@$ip"
+set attempt_count 0
+
+# connect via scp
+spawn ssh "$scp_line"
+#######################
+expect {
+  -re ".*es.*o.*" {
+    exp_send "yes\r"
+    exp_continue
+  }
+  -re ".*password.*" {
+    exp_send "$pw\r"
+    exp_continue
+  }
+  -re ".*~].*" {
+    exp_send "su\r"
+    exp_continue
+  }
+  -re ".*Password*" {
+    exp_send "$root_pw\r"
+    set attempts [expr {$attempts + 1}]
+    if {$attempts < 2} {
+        exp_continue
+    }
+  }
+  -re ".*]#.*" {
+    set success true
+    exp_send "exit\r"
+  }
+}
+
+##If we logged on in under 2 attempts return 0, password is set
+if {$success == true} {
+exit 0
+##return 1 password not set
+} else {
+exit 1
+}

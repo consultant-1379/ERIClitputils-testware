@@ -1,0 +1,9 @@
+virsh list ||| virsh_list.txt
+hastatus -sum ||| hastatus_sum.txt
+hares -display ||| hares_display.txt
+hagrp -display ||| hagrp_display.txt
+ip r ||| ip_r.txt
+ip a ||| ip_a.txt
+ss -lntp ||| ss_lntp.txt
+iptables-save ||| iptables_save.txt
+hacf -cftocmd /etc/VRTSvcs/conf/config/ -display ||| hacf_cftocmd.txt

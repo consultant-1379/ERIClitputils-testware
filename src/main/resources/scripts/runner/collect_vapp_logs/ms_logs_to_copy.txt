@@ -1,0 +1,11 @@
+/var/log/mcollective.log mcollective.log
+/var/log/mcollective-audit.log mcollective-audit.log
+/var/log/boot.log boot.log
+/var/log/yum.log yum.log
+/etc/litp-release litp-release
+/var/log/audit/audit.log audit.log
+/opt/ericsson/nms/litp/etc/puppet/manifests/plugins/ plugins
+/var/log/litp/ var_log_litp
+/tmp/litp_backup* db_backups
+/var/log/cobbler/ cobbler
+/var/log/httpd httpd
